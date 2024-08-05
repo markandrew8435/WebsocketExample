@@ -60,7 +60,3 @@ Manages the WebSocket connection and handles incoming messages. It parses the JS
 - `flutter`
 - `provider`: ^6.1.3
 - `web_socket_channel`: ^2.2.1
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
