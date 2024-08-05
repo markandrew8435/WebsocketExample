@@ -1,5 +1,8 @@
 # WebSocket Example
 
+![image](https://github.com/user-attachments/assets/42cbdd02-a637-40c8-9f5b-f8e3ae8a8d38)
+
+
 This Flutter application demonstrates how to use WebSocket to receive real-time data from BitMEX and display it on the screen. It utilizes the `provider` package for state management and `web_socket_channel` for WebSocket communication.
 
 ## Features
