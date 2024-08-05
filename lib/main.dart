@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
-import 'dart:convert';
+
+import 'package:websocket_example/services/web_socket_service.dart';
 
 void main() {
   runApp(MyApp());
@@ -21,6 +22,7 @@ class WebSocketDemo extends StatefulWidget {
 }
 
 class _WebSocketDemoState extends State<WebSocketDemo> {
+  late WebSocketService _webSocketService;
   final WebSocketChannel channel = WebSocketChannel.connect(
     Uri.parse('wss://www.bitmex.com/realtime'),
   );
@@ -29,20 +31,15 @@ class _WebSocketDemoState extends State<WebSocketDemo> {
   @override
   void initState() {
     super.initState();
-    // Subscribe to the XBTUSD instrument
-    channel.sink.add(jsonEncode({
-      'op': 'subscribe',
-      'args': ['trade:XBTUSD']
-    }));
-    channel.stream.listen((data) {
-      final decodedData = jsonDecode(data);
-      if (decodedData['table'] == 'trade' && decodedData['data'] != null) {
-        final tradeData = decodedData['data'][0];
-        setState(() {
-          lastReceivedPrice = tradeData['price'].toString();
+    
+    _webSocketService = WebSocketService('wss://www.bitmex.com/realtime');
+
+    _webSocketService.priceStream.listen((price) {
+      setState(() {
+          lastReceivedPrice = price.toString();
         });
-      }
     });
+
   }
 
   @override
